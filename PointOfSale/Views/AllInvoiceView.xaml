@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="PointOfSale.Views.AllInvoiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PointOfSale.Views"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <TextBlock DockPanel.Dock="Top" Margin="10" Text="Today's Invoice List" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="15"/>
+            <TextBlock DockPanel.Dock="Bottom" Margin="10" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="12">
+                    <Run Text="Profit for the day: "/><Run  Text="{Binding OverAllProfit}"/>
+            </TextBlock>
+            <TextBlock DockPanel.Dock="Bottom" Margin="10" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="12">
+                    <Run Text="Overall Sale of the day: "/><Run  Text="{Binding OverAllSale}"/>
+            </TextBlock>
+            <ListView Name="allInvoiceListView" Margin="10" ItemsSource="{Binding InvoiceList}" SelectedItem="{Binding SelectedInvoice}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="120" DisplayMemberBinding="{Binding InvoiceId}" />
+                        <GridViewColumn Header="Date" Width="120" DisplayMemberBinding="{Binding DateTime, StringFormat='dd/MM/yyyy'}" />
+                        <GridViewColumn Header="Time" Width="120" DisplayMemberBinding="{Binding DateTime, StringFormat='hh:mm tt'}" />
+                        <GridViewColumn Header="Total" Width="120" DisplayMemberBinding="{Binding FinalAmount}" />
+                        <GridViewColumn Header="" Width="120" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="View" Command="{Binding ElementName=root, Path=DataContext.ViewSaleCommand}" HorizontalAlignment="Stretch"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>
